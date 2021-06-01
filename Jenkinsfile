@@ -9,7 +9,7 @@ import groovy.transform.Field
 @Field def stashedTestReports = [:]
 
 pipeline {
-  agent { label 'ubuntu-16 && immutable' }
+  agent { label 'ubuntu-20' }
   environment {
     AWS_ACCOUNT_SECRET = 'secret/observability-team/ci/elastic-observability-aws-account-auth'
     REPO = 'beats'
@@ -28,7 +28,7 @@ pipeline {
     XPACK_MODULE_PATTERN = '^x-pack\\/[a-z0-9]+beat\\/module\\/([^\\/]+)\\/.*'
   }
   options {
-    timeout(time: 4, unit: 'HOURS')
+    timeout(time: 2, unit: 'HOURS')
     buildDiscarder(logRotator(numToKeepStr: '20', artifactNumToKeepStr: '20', daysToKeepStr: '30'))
     timestamps()
     ansiColor('xterm')
